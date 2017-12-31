@@ -2,6 +2,7 @@
 ' 	- Version 1
 '	- Date: December 30, 2017
 '	- Author: Tarv
+'	- GitHub: https://github.com/tarvcode/Check-Cast_XMR
 
 On Error Resume Next
 
