@@ -63,20 +63,22 @@ Do While intFindStart > 13 And boolEnd = 0
 	intHash = Int(Mid(strCastXMR_Output, intFindStart, intFindLength))
 	
 	If intHash < arrHash(intLoop) Then
+
 		objShell.Popup "Low Hashrate Found on GPU" & intLoop+1 & Chr(13) & "Hashrate: " & intHash & " - Expected: " & arrHash(intLoop) & Chr(13) & Chr(13) & "Cast_XMR will be restarted...", 5
 		objLog.WriteLine "Low Hashrate Found on GPU" & intLoop+1 & " - Hashrate: " & intHash & " - Expected: " & arrHash(intLoop)
 		objShell.Run "taskkill /f /im " & strCastXMR_EXE & " /t"
-		WScript.Sleep 5000
+		WScript.Sleep 5000  '-- Script will pause for 5 seconds after killing the miner
 
 		If Len(Trim(strDevCon_BAT)) > 0 Then
 			objShell.Run strDevCon_BAT
 			objLog.WriteLine "Cards were disabled/enabled at " & FormatDateTime(Now, vbGeneralDate)
-			WScript.Sleep 10000
+			WScript.Sleep 10000  '-- Script will pause for 10 seconds after disable/enable the cards
 		End If
 		
 		objShell.Run strCastXMR_BAT
 		objLog.WriteLine "Cast_XMR was restarted at " & FormatDateTime(Now, vbGeneralDate)
 		boolEnd = 1
+
 	End If
 		
 	intFindStart = InStr(intFindEnd, strCastXMR_Output, """hash_rate""") + 13
